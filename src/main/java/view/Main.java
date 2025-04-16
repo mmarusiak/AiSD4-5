@@ -17,15 +17,16 @@ import controllers.testing.results.Result;
 public class Main {
 
 	public static void main(String[] args) {
-		Generator<MarkedValue<Integer>> generator = new MarkingGenerator<Integer>(new OrderedIntegerArrayGenerator());
-		//generator = new LinkedListGenerator<>(generator);
+		Generator<MarkedValue<Integer>> generator = new MarkingGenerator<Integer>(new RandomIntegerArrayGenerator(200));
+		generator = new LinkedListGenerator<>(generator);
 		//Generator<MarkedValue<Integer>> generator = new MarkingGenerator<Integer>(new ReversedIntegerArrayGenerator());
 		//Generator<MarkedValue<Integer>> generator = new MarkingGenerator<Integer>(new );
 
 		AbstractSortingAlgorithm<MarkedValue<Integer>> alg = new QuickSortMemory<MarkedValue<Integer>>(new MarkedValueComparator<Integer>(new IntegerComparator()), new FirstPivot<>());
 		zawiszaVoid(alg, generator);
 
-		//graphVoid(generator, 20, 1_000_000, 100_000);
+
+		//graphVoid(generator, 20, 10_000, 1_000);
 	}
 
 
@@ -35,7 +36,8 @@ public class Main {
 		AbstractSortingAlgorithm<MarkedValue<Integer>>[] algs = new AbstractSortingAlgorithm[] {
 				//new QuickSort<MarkedValue<Integer>>(markedComparator, new FirstPivot<MarkedValue<Integer>>()),
 				//new ShakerSort<MarkedValue<Integer>>(markedComparator),
-				new QuickSort<MarkedValue<Integer>>(markedComparator, new RandomPivot<>()),
+				//new QuickSort<MarkedValue<Integer>>(markedComparator, new RandomPivot<>()),
+				new QuickSortMemory(markedComparator, new RandomPivot<>()),
 				new MergeSort3Way<MarkedValue<Integer>>(markedComparator)
 		};
 		testAlgorithmsOptimal(generator, algs, repetitions, maxSize, stepSize);

@@ -1,9 +1,9 @@
 package controllers.algorithms;
 
 import controllers.core.AbstractSwappingSortingAlgorithm;
-import controllers.testing.MarkedValue;
 
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 public class QuickSortMemory<T> extends AbstractSwappingSortingAlgorithm<T> {
@@ -26,7 +26,7 @@ public class QuickSortMemory<T> extends AbstractSwappingSortingAlgorithm<T> {
         int lessIndex = low, greaterIndex = high;
         T pivot = pivotStrategy.choosePivot(list, low, high);
         int i = low;
-
+/*
         while (i <= high)
         {
             T e = list.get(i);
@@ -40,6 +40,26 @@ public class QuickSortMemory<T> extends AbstractSwappingSortingAlgorithm<T> {
                 continue;
             }
             i += 1;
+        }*/
+
+        Iterator<T> iter = list.listIterator(low);
+        T e = iter.next();
+
+        while (i <= high)
+        {
+            //System.out.println(i + ": " +  ((MarkedValue)e).value());
+            if (compare(pivot, e) > 0 && lessIndex < i) {
+                swap(list, i, lessIndex++);
+                e = list.get(i);
+                continue;
+            }
+            if (compare(pivot, e) < 0 && greaterIndex > i) {
+                swap(list, i, greaterIndex--);
+                e = list.get(i);
+                continue;
+            }
+            if (iter.hasNext()) e = iter.next();
+            i++;
         }
         quickSort(list, low, lessIndex);
         quickSort(list, greaterIndex, high);
