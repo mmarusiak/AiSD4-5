@@ -18,14 +18,14 @@ public class Main {
 
 	public static void main(String[] args) {
 		Generator<MarkedValue<Integer>> generator = new MarkingGenerator<Integer>(new OrderedIntegerArrayGenerator());
-		generator = new LinkedListGenerator<>(generator);
+		//generator = new LinkedListGenerator<>(generator);
 		//Generator<MarkedValue<Integer>> generator = new MarkingGenerator<Integer>(new ReversedIntegerArrayGenerator());
 		//Generator<MarkedValue<Integer>> generator = new MarkingGenerator<Integer>(new );
 
-		AbstractSortingAlgorithm<MarkedValue<Integer>> alg = new MergeSort3Way<MarkedValue<Integer>>(new MarkedValueComparator<Integer>(new IntegerComparator()));
-		//zawiszaVoid(alg, generator);
+		AbstractSortingAlgorithm<MarkedValue<Integer>> alg = new QuickSortMemory<MarkedValue<Integer>>(new MarkedValueComparator<Integer>(new IntegerComparator()), new FirstPivot<>());
+		zawiszaVoid(alg, generator);
 
-		graphVoid(generator, 20, 1_000_000, 100_000);
+		//graphVoid(generator, 20, 1_000_000, 100_000);
 	}
 
 
@@ -58,6 +58,7 @@ public class Main {
 		for (MarkedValue<Integer> markedValue : toSort) {
 			System.out.println(markedValue.value());
 		}
+
 
 		printStatistic("time [ms]", result.averageTimeInMilliseconds(), result.timeStandardDeviation());
 		printStatistic("comparisons", result.averageComparisons(), result.comparisonsStandardDeviation());

@@ -23,7 +23,7 @@ public class QuickSort<T> extends AbstractSortingAlgorithm<T> {
     public List<T> quickSort(List<T> list) {
         if (list.size() <= 1) return list;
 
-        T pivot = pivotStrategy.choosePivot(list);
+        T pivot = pivotStrategy.choosePivot(list, 0, list.size());
         List<T> less = new LinkedList<>();
         List<T> equal = new LinkedList<>();
         List<T> greater = new LinkedList<>();
